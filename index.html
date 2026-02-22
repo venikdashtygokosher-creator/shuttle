@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shuttle POS Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">🚌</div>
+          <div>
+            <h1>Shuttle POS</h1>
+            <p>Management System</p>
+          </div>
+        </div>
+
+        <nav class="menu" id="menu"></nav>
+
+        <div class="quick-sale">
+          <h3>Quick Sale</h3>
+          <p>Process a new subscription</p>
+          <button id="quickSaleBtn" class="primary">New Sale</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <h2 id="viewTitle">Dashboard</h2>
+            <p id="todayDate"></p>
+          </div>
+          <div class="top-actions">
+            <button id="passengerShortcut" class="secondary">Passengers</button>
+            <button id="saleShortcut" class="primary">+ New Sale</button>
+          </div>
+        </header>
+
+        <section id="dashboardView" class="view"></section>
+        <section id="posView" class="view hidden"></section>
+        <section id="passengersView" class="view hidden"></section>
+        <section id="tripsView" class="view hidden"></section>
+        <section id="plansView" class="view hidden"></section>
+        <section id="gpsView" class="view hidden"></section>
+        <section id="kioskView" class="view hidden"></section>
+      </main>
+    </div>
+
+    <template id="metricCardTpl">
+      <article class="metric-card">
+        <p class="label"></p>
+        <p class="value"></p>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
