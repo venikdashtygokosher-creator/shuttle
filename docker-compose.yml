@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: shuttle_db
+      POSTGRES_USER: shuttle
+      POSTGRES_PASSWORD: shuttlepass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      PORT: 3001
+      DATABASE_URL: postgresql://shuttle:shuttlepass@postgres:5432/shuttle_db
+      JWT_SECRET: change-this-in-production
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: changeme123
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    command: sh -c "node src/db/migrate.js && node src/index.js"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
